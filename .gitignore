@@ -1,0 +1,55 @@
+# ---------- secrets (never commit) ----------
+Tools/StreetRef/config.json
+**/config.local.json
+.env
+*.env
+*.key
+*.pem
+
+# ---------- downloaded / generated reference content ----------
+# Photos and their per-capture data live only on this PC
+Projects/*/References/*/
+Projects/*/References/INVENTORY.md
+Projects/*/References/*_log.txt
+Projects/*/References/*_coverage.json
+Projects/*/References/coverage_map.html
+Projects/*/References/route_preview.html
+refs/
+
+# ---------- media, 3D and engine files ----------
+*.jpg
+*.jpeg
+*.png
+*.tga
+*.exr
+*.hdr
+*.psd
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.wav
+*.mp3
+*.blend
+*.blend1
+*.fbx
+*.obj
+*.glb
+*.gltf
+*.ply
+*.uasset
+*.umap
+**/Binaries/
+**/Intermediate/
+**/Saved/
+**/DerivedDataCache/
+**/.vs/
+.idea/
+.vscode/
+
+# ---------- Python / OS clutter ----------
+__pycache__/
+*.pyc
+Thumbs.db
+desktop.ini
+.DS_Store

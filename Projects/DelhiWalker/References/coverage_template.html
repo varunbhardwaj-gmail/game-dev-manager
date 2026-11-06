@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DelhiWalker Photo Coverage</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+:root{--bg:#fff;--fg:#1a1a1a;--muted:#666}
+@media (prefers-color-scheme:dark){:root{--bg:#141414;--fg:#eee;--muted:#aaa}}
+body{margin:0;font:14px/1.5 system-ui,sans-serif;background:var(--bg);color:var(--fg)}
+header{padding:10px 16px}h1{font-size:18px;margin:0}p{margin:2px 0;color:var(--muted)}
+#map{height:calc(100vh - 110px);min-height:360px}
+</style></head><body>
+<header><h1>Photo coverage</h1>
+<p>Small dots = Mapillary photos (orange: 2024 or newer, grey: older). Lines = planned capture routes. Click anywhere to get coordinates.</p></header>
+<div id="map"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+const photos=__PHOTOS__, plan=__PLAN__;
+const map=L.map('map',{preferCanvas:true}).setView([28.5005,77.0945],16);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap contributors'}).addTo(map);
+photos.forEach(([la,lo,d,h])=>L.circleMarker([la,lo],{radius:2.5,stroke:false,fillOpacity:.8,fillColor:d>='2024'?'#e8871e':'#888'}).addTo(map).bindTooltip(d+' · heading '+h+'°'));
+const colors=['#d1495b','#2a7de1','#2e9e5b'];
+plan.captures.forEach((c,i)=>{const a=c.args, pt=s=>s.split(',').map(Number);
+ const r=a.indexOf('--route'), p=a.indexOf('--point'), rad=+a[a.indexOf('--radius')+1];
+ if(r>=0){L.polyline(a[r+1].split(';').map(pt),{color:colors[i%3],weight:4,opacity:.8}).addTo(map).bindTooltip(c.name);}
+ if(p>=0){L.circle(pt(a[p+1]),{radius:rad,color:colors[i%3]}).addTo(map).bindTooltip(c.name);}});
+map.on('click',e=>L.popup().setLatLng(e.latlng).setContent(e.latlng.lat.toFixed(5)+','+e.latlng.lng.toFixed(5)).openOn(map));
+</script></body></html>

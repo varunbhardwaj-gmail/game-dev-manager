@@ -1,0 +1,85 @@
+{
+  "project": "DelhiWalker",
+  "note": "Routes were traced from real Mapillary photo tracks (survey 2026-11-06). Edit waypoints here if needed, then run capture.bat. Sequence filters keep route 1 on the flyover and drop northbound drives from route 2.",
+  "anchors": {
+    "start_nh48_north_edge_of_coverage": "28.51297,77.09306",
+    "shankar_chowk": "28.5006,77.0905",
+    "route1_end_past_flyover (check)": "28.49853,77.08912",
+    "dlf_building_5 (geocoded, check)": "28.49395,77.08780"
+  },
+  "legacy_folders": [
+    "r1_nh48_flyover",
+    "r2_cybercity_bldg5",
+    "r3_dlf_bldg5_all_angles"
+  ],
+  "groups": [
+    {
+      "folder": "Route1_Entry_to_Flyover",
+      "title": "Route 1: Entry to Flyover",
+      "summary": "Entering Gurugram from Delhi on NH-48 (southbound), staying on the main carriageway and going straight up and over the Shankar Chowk flyover. Ends just after the flyover; nothing beyond it is included.",
+      "look_for": "Wide 8-lane expressway, concrete crash barriers and yellow-black dividers, high-tension power lines and pylons, overhead gantry signs, glass office blocks on both sides, the flyover deck and its parapets."
+    },
+    {
+      "folder": "Route2_Entry_to_Building5",
+      "title": "Route 2: Entry towards Building No. 5",
+      "summary": "Same entry on NH-48, but keeping left before the flyover onto the ground-level road at Shankar Chowk. The road curves left into DLF Cyber City and continues to DLF Building No. 5, where a set of photos shows the building from every direction available.",
+      "look_for": "Underside of the flyover and its pillars, the slip road and Shankar Chowk junction, e-rickshaws and autos, Cyber Hub signage, Cyber City glass towers, kerbs and medians, then the Building 5 frontage and surroundings."
+    }
+  ],
+  "captures": [
+    {
+      "name": "r1_main",
+      "description": "Route 1: NH-48 southbound from the Delhi side, on top of the Shankar Chowk flyover, stopping just after it (one 2016 drive that stays on the flyover).",
+      "args": [
+        "--route",
+        "28.51297,77.09306;28.51224,77.09307;28.51148,77.09322;28.51071,77.09353;28.51014,77.09386;28.50956,77.09420;28.50899,77.09453;28.50830,77.09490;28.50749,77.09509;28.50681,77.09515;28.50607,77.09506;28.50540,77.09484;28.50479,77.09449;28.50423,77.09407;28.50368,77.09361;28.50311,77.09314;28.50258,77.09270;28.50199,77.09225;28.50141,77.09178;28.50082,77.09128;28.50025,77.09072;28.49975,77.09025;28.49923,77.08976;28.49867,77.08925;28.49853,77.08912",
+        "--radius",
+        "25",
+        "--spacing",
+        "10",
+        "--max",
+        "250",
+        "--only-seq",
+        "u7nBCgLB"
+      ],
+      "group": "Route1_Entry_to_Flyover",
+      "section": "Full route: NH-48 entry to end of flyover"
+    },
+    {
+      "name": "r2_main",
+      "description": "Route 2: same start, left before the flyover at Shankar Chowk, road curves left into Cyber City, ending level with DLF Building 5 (southbound drives only).",
+      "args": [
+        "--route",
+        "28.51290,77.09333;28.51242,77.09340;28.51197,77.09350;28.51151,77.09361;28.51107,77.09379;28.51060,77.09393;28.51010,77.09417;28.50968,77.09438;28.50920,77.09459;28.50876,77.09477;28.50830,77.09498;28.50787,77.09513;28.50734,77.09523;28.50680,77.09531;28.50627,77.09523;28.50580,77.09512;28.50534,77.09494;28.50483,77.09467;28.50442,77.09439;28.50403,77.09411;28.50367,77.09378;28.50321,77.09342;28.50280,77.09310;28.50237,77.09277;28.50193,77.09252;28.50144,77.09225;28.50101,77.09194;28.50056,77.09164;28.50014,77.09136;28.49962,77.09091;28.49918,77.09051;28.49875,77.09012;28.49839,77.08979;28.49789,77.08975;28.49761,77.09027;28.49734,77.09071;28.49701,77.09118;28.49672,77.09163;28.49647,77.09205;28.49617,77.09247;28.49575,77.09274;28.49529,77.09254;28.49485,77.09232;28.49434,77.09212;28.49384,77.09192",
+        "--radius",
+        "25",
+        "--spacing",
+        "10",
+        "--max",
+        "300",
+        "--exclude-seq",
+        "8CyobOUB,u7nBCgLB"
+      ],
+      "group": "Route2_Entry_to_Building5",
+      "section": "Drive: NH-48 entry, left at Shankar Chowk, into Cyber City up to Building 5"
+    },
+    {
+      "name": "r2_building5_all_angles",
+      "description": "DLF Building 5: every photo within 400 m whose camera points at the building, ordered clockwise around it.",
+      "args": [
+        "--point",
+        "28.49395,77.08780",
+        "--radius",
+        "400",
+        "--facing-centre",
+        "45",
+        "--spacing",
+        "8",
+        "--max",
+        "150"
+      ],
+      "group": "Route2_Entry_to_Building5",
+      "section": "Destination: DLF Building No. 5 from all available angles"
+    }
+  ]
+}
