@@ -70,6 +70,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("folder")
     ap.add_argument("--title", default="Reference inventory")
+    ap.add_argument("--group", help="only this route group (its folder name); writes INVENTORY.md inside that folder")
     a = ap.parse_args()
     root = os.path.abspath(a.folder)
     plan = {}
@@ -83,6 +84,10 @@ def main():
                 for n in sorted(os.listdir(root)) if os.path.isfile(os.path.join(root, n, "manifest.json"))]
     else:
         caps = plan["captures"]
+    if a.group:
+        groups = [g for g in groups if g["folder"] == a.group]
+        if not groups:
+            raise SystemExit(f"No group '{a.group}' in capture_plan.json")
 
     out = [f"# {a.title}", "",
            f"Generated {dt.datetime.now():%Y-%m-%d %H:%M} · Folder `{root}`", ""]
@@ -154,6 +159,13 @@ def main():
                 for k, ims in bands.items():
                     body.append(f"| {k*250}–{(k+1)*250} m | {len(ims)} | `{os.path.basename(ims[0]['file'])}` |")
                 body.append("")
+                # stretches with no photos: before the first one, and between photos more than 150 m apart
+                along = sorted(i["along_route_m"] for i in imgs if i.get("along_route_m") is not None)
+                gaps = ([(0, along[0])] if along and along[0] > 150 else []) + \
+                       [(p, q) for p, q in zip(along, along[1:]) if q - p > 150]
+                if gaps:
+                    body += ["Gaps (no photos for more than 150 m): " +
+                             ", ".join(f"{p/1000:.2f}–{q/1000:.2f} km" for p, q in gaps), ""]
             if mode == "point" and imgs:
                 sides = collections.Counter(["N", "NE", "E", "SE", "S", "SW", "W", "NW"]
                                             [int(((i.get("bearing_from_centre") or 0) + 22.5) // 45) % 8] for i in imgs)
@@ -172,9 +184,10 @@ def main():
     lic = ["## Licence", "",
            "All photos are from Mapillary under CC BY-SA 4.0. Use them as modelling reference; keep each "
            "ATTRIBUTION.md and credit Mapillary contributors in the game credits.", ""]
-    with open(os.path.join(root, "INVENTORY.md"), "w", encoding="utf-8") as f:
+    target = os.path.join(root, a.group, "INVENTORY.md") if a.group else os.path.join(root, "INVENTORY.md")
+    with open(target, "w", encoding="utf-8") as f:
         f.write("\n".join(out + overview + naming + body + lic))
-    print(f"Wrote {os.path.join(root, 'INVENTORY.md')} ({grand_n} photos)")
+    print(f"Wrote {target} ({grand_n} photos)")
 
 
 if __name__ == "__main__":
