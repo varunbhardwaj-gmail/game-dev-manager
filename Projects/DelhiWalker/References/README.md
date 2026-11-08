@@ -12,7 +12,7 @@ Street-level reference photos for the opening area of DelhiWalker, in two route 
 ## Files here
 - `capture.bat`: downloads or refreshes all photos and rebuilds INVENTORY.md (`capture.bat r1_main` redoes one section)
 - `capture_plan.json`: routes, waypoints and filters
-- `survey.bat`: maps where Mapillary photos exist (no downloads) and opens coverage_map.html
+- `survey.bat [area]`: maps where Mapillary photos exist (no downloads) and opens coverage_map_<area>.html (areas: gurugram, noida_expressway)
 - `route_preview.html`: photo coverage with the current routes drawn on top
 - `capture_log.txt`, `survey_log.txt`: output of the last runs
 

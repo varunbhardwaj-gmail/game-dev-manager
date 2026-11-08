@@ -1,11 +1,36 @@
 {
   "project": "DelhiWalker",
-  "note": "Routes were traced from real Mapillary photo tracks (survey 2026-11-06). Edit waypoints here if needed, then run capture.bat. Sequence filters keep route 1 on the flyover and drop northbound drives from route 2.",
+  "note": "Routes traced from real Mapillary photo tracks (surveys 2026-11-06). Start point confirmed from photos: the Delhi-side flyover touches down at ~28.5177. Sequence filters keep route 1 on the main carriageway/flyover and drop northbound drives from route 2. Noida Expressway Route 1 (2026-11-08) follows the OpenStreetMap towards-DND carriageway, resampled every 100 m; the 2019 photo tracks sit a median 6 m from it.",
   "anchors": {
-    "start_nh48_north_edge_of_coverage": "28.51297,77.09306",
+    "start_delhi_flyover_touchdown": "28.51775,77.09570",
+    "wide_open_stretch": "28.5148,77.0938",
+    "ambience_mall": "28.5036,77.0973",
     "shankar_chowk": "28.5006,77.0905",
     "route1_end_past_flyover (check)": "28.49853,77.08912",
-    "dlf_building_5 (geocoded, check)": "28.49395,77.08780"
+    "dlf_building_5 (geocoded, check)": "28.49395,77.08780",
+    "ne_pari_chowk (OSM, check)": "28.4649,77.5112",
+    "ne_mahamaya_flyover (OSM)": "28.5565,77.3248",
+    "ne_dnd_noida_flyover_end (OSM, check)": "28.5725,77.3095"
+  },
+  "survey_areas": {
+    "_note": "Each area is a list of small boxes (south,west,north,east). noida_expressway boxes hug the OpenStreetMap line of the Noida-Greater Noida Expressway plus Dadri Main Road via Film City to the DND Noida flyover (traced 2026-11-08).",
+    "gurugram": [
+      "28.4900,77.0820,28.5350,77.1200"
+    ],
+    "noida_expressway": [
+      "28.4528,77.4961,28.4667,77.5127",
+      "28.4425,77.4722,28.4521,77.4929",
+      "28.4492,77.4586,28.4649,77.4748",
+      "28.4639,77.4392,28.4808,77.4599",
+      "28.4784,77.4221,28.4938,77.4414",
+      "28.4923,77.4045,28.5022,77.4231",
+      "28.5003,77.3838,28.5141,77.4046",
+      "28.5116,77.3652,28.5285,77.3862",
+      "28.5259,77.3464,28.5406,77.3672",
+      "28.5374,77.3288,28.5535,77.3492",
+      "28.5511,77.3132,28.5674,77.3311",
+      "28.5654,77.3066,28.5760,77.3152"
+    ]
   },
   "legacy_folders": [
     "r1_nh48_flyover",
@@ -16,23 +41,29 @@
     {
       "folder": "Route1_Entry_to_Flyover",
       "title": "Route 1: Entry to Flyover",
-      "summary": "Entering Gurugram from Delhi on NH-48 (southbound), staying on the main carriageway and going straight up and over the Shankar Chowk flyover. Ends just after the flyover; nothing beyond it is included.",
+      "summary": "Driving into Gurugram from Delhi on NH-48 (old NH-8), southbound. Starts where the Delhi-side flyover comes down onto the road, crosses the wide open stretch with Ambience Mall ahead, then goes straight up and over the Shankar Chowk flyover. Ends just after it.",
       "look_for": "Wide 8-lane expressway, concrete crash barriers and yellow-black dividers, high-tension power lines and pylons, overhead gantry signs, glass office blocks on both sides, the flyover deck and its parapets."
     },
     {
       "folder": "Route2_Entry_to_Building5",
       "title": "Route 2: Entry towards Building No. 5",
-      "summary": "Same entry on NH-48, but keeping left before the flyover onto the ground-level road at Shankar Chowk. The road curves left into DLF Cyber City and continues to DLF Building No. 5, where a set of photos shows the building from every direction available.",
+      "summary": "Same start where the Delhi-side flyover comes down, across the wide open stretch, but keeping left before the Shankar Chowk flyover onto the ground-level road. The road curves left into DLF Cyber City and continues to DLF Building No. 5, where a set of photos shows the building from every direction available.",
       "look_for": "Underside of the flyover and its pillars, the slip road and Shankar Chowk junction, e-rickshaws and autos, Cyber Hub signage, Cyber City glass towers, kerbs and medians, then the Building 5 frontage and surroundings."
+    },
+    {
+      "folder": "NoidaExpressway_Route1",
+      "title": "Noida Expressway Route 1: Pari Chowk to DND",
+      "summary": "Second level. Driving from Pari Chowk (Greater Noida) along the Noida-Greater Noida Expressway towards Delhi, past the Sector 142/137 interchanges and Sector 125-128, over the Mahamaya flyover, then Dadri Main Road past Film City to the DND Flyway entry (~26 km). Photos are mostly from two 2019 drives: dense from Sector 137 to DND, thin in the Greater Noida half, none for the first ~2 km from Pari Chowk. No look-around stops: these drives' compass headings are unreliable (all photos face forward) and no side/rear views exist; use the drive photos, and my own 360° drive later.",
+      "look_for": "Wide 6-8 lane access-controlled expressway, metro viaduct (Aqua Line) alongside, central verge with plants and crash barriers, service roads, interchange flyovers and underpasses, gantry signs, street lights, open land and high-rise residential towers under construction, IT offices nearer Noida, Mahamaya flyover and Film City."
     }
   ],
   "captures": [
     {
       "name": "r1_main",
-      "description": "Route 1: NH-48 southbound from the Delhi side, on top of the Shankar Chowk flyover, stopping just after it (one 2016 drive that stays on the flyover).",
+      "description": "Route 1: from where the Delhi-side NH-48 flyover touches down, across the wide open stretch towards Ambience Mall, then up and over the Shankar Chowk flyover, stopping just after it.",
       "args": [
         "--route",
-        "28.51297,77.09306;28.51224,77.09307;28.51148,77.09322;28.51071,77.09353;28.51014,77.09386;28.50956,77.09420;28.50899,77.09453;28.50830,77.09490;28.50749,77.09509;28.50681,77.09515;28.50607,77.09506;28.50540,77.09484;28.50479,77.09449;28.50423,77.09407;28.50368,77.09361;28.50311,77.09314;28.50258,77.09270;28.50199,77.09225;28.50141,77.09178;28.50082,77.09128;28.50025,77.09072;28.49975,77.09025;28.49923,77.08976;28.49867,77.08925;28.49853,77.08912",
+        "28.51775,77.09570;28.51699,77.09518;28.51629,77.09472;28.51560,77.09426;28.51489,77.09378;28.51403,77.09349;28.51332,77.09331;28.51297,77.09306;28.51224,77.09307;28.51148,77.09322;28.51071,77.09353;28.51014,77.09386;28.50956,77.09420;28.50899,77.09453;28.50830,77.09490;28.50749,77.09509;28.50681,77.09515;28.50607,77.09506;28.50540,77.09484;28.50479,77.09449;28.50423,77.09407;28.50368,77.09361;28.50311,77.09314;28.50258,77.09270;28.50199,77.09225;28.50141,77.09178;28.50082,77.09128;28.50025,77.09072;28.49975,77.09025;28.49923,77.08976;28.49867,77.08925;28.49853,77.08912",
         "--radius",
         "25",
         "--spacing",
@@ -40,17 +71,34 @@
         "--max",
         "250",
         "--only-seq",
-        "u7nBCgLB"
+        "u7nBCgLB,LEAbmTO9"
       ],
       "group": "Route1_Entry_to_Flyover",
-      "section": "Full route: NH-48 entry to end of flyover"
+      "section": "Full route: Delhi-side flyover touchdown to end of Shankar Chowk flyover"
+    },
+    {
+      "name": "r1_stops",
+      "group": "Route1_Entry_to_Flyover",
+      "tool": "viewpoints.py",
+      "section": "Look-around stops every 50 m (ahead / right / behind / left)",
+      "description": "Route 1 look-around: every 50 m, the best real photo facing ahead, right, behind and left from any drive that passed. Empty directions are listed in STOPS.md.",
+      "args": [
+        "--route",
+        "28.51775,77.09570;28.51699,77.09518;28.51629,77.09472;28.51560,77.09426;28.51489,77.09378;28.51403,77.09349;28.51332,77.09331;28.51297,77.09306;28.51224,77.09307;28.51148,77.09322;28.51071,77.09353;28.51014,77.09386;28.50956,77.09420;28.50899,77.09453;28.50830,77.09490;28.50749,77.09509;28.50681,77.09515;28.50607,77.09506;28.50540,77.09484;28.50479,77.09449;28.50423,77.09407;28.50368,77.09361;28.50311,77.09314;28.50258,77.09270;28.50199,77.09225;28.50141,77.09178;28.50082,77.09128;28.50025,77.09072;28.49975,77.09025;28.49923,77.08976;28.49867,77.08925;28.49853,77.08912",
+        "--step",
+        "50",
+        "--radius",
+        "30",
+        "--exclude-seq",
+        "aRGHEIwg,7hYaVoPB,zoUkxnPZ"
+      ]
     },
     {
       "name": "r2_main",
-      "description": "Route 2: same start, left before the flyover at Shankar Chowk, road curves left into Cyber City, ending level with DLF Building 5 (southbound drives only).",
+      "description": "Route 2: same start where the Delhi-side flyover touches down, keep left before the Shankar Chowk flyover, road curves left into Cyber City, ending level with DLF Building 5 (southbound drives only).",
       "args": [
         "--route",
-        "28.51290,77.09333;28.51242,77.09340;28.51197,77.09350;28.51151,77.09361;28.51107,77.09379;28.51060,77.09393;28.51010,77.09417;28.50968,77.09438;28.50920,77.09459;28.50876,77.09477;28.50830,77.09498;28.50787,77.09513;28.50734,77.09523;28.50680,77.09531;28.50627,77.09523;28.50580,77.09512;28.50534,77.09494;28.50483,77.09467;28.50442,77.09439;28.50403,77.09411;28.50367,77.09378;28.50321,77.09342;28.50280,77.09310;28.50237,77.09277;28.50193,77.09252;28.50144,77.09225;28.50101,77.09194;28.50056,77.09164;28.50014,77.09136;28.49962,77.09091;28.49918,77.09051;28.49875,77.09012;28.49839,77.08979;28.49789,77.08975;28.49761,77.09027;28.49734,77.09071;28.49701,77.09118;28.49672,77.09163;28.49647,77.09205;28.49617,77.09247;28.49575,77.09274;28.49529,77.09254;28.49485,77.09232;28.49434,77.09212;28.49384,77.09192",
+        "28.51775,77.09570;28.51699,77.09518;28.51629,77.09472;28.51560,77.09426;28.51489,77.09378;28.51403,77.09349;28.51332,77.09331;28.51290,77.09333;28.51242,77.09340;28.51197,77.09350;28.51151,77.09361;28.51107,77.09379;28.51060,77.09393;28.51010,77.09417;28.50968,77.09438;28.50920,77.09459;28.50876,77.09477;28.50830,77.09498;28.50787,77.09513;28.50734,77.09523;28.50680,77.09531;28.50627,77.09523;28.50580,77.09512;28.50534,77.09494;28.50483,77.09467;28.50442,77.09439;28.50403,77.09411;28.50367,77.09378;28.50321,77.09342;28.50280,77.09310;28.50237,77.09277;28.50193,77.09252;28.50144,77.09225;28.50101,77.09194;28.50056,77.09164;28.50014,77.09136;28.49962,77.09091;28.49918,77.09051;28.49875,77.09012;28.49839,77.08979;28.49789,77.08975;28.49761,77.09027;28.49734,77.09071;28.49701,77.09118;28.49672,77.09163;28.49647,77.09205;28.49617,77.09247;28.49575,77.09274;28.49529,77.09254;28.49485,77.09232;28.49434,77.09212;28.49384,77.09192",
         "--radius",
         "25",
         "--spacing",
@@ -61,7 +109,24 @@
         "8CyobOUB,u7nBCgLB"
       ],
       "group": "Route2_Entry_to_Building5",
-      "section": "Drive: NH-48 entry, left at Shankar Chowk, into Cyber City up to Building 5"
+      "section": "Drive: Delhi-side flyover touchdown, left at Shankar Chowk, into Cyber City up to Building 5"
+    },
+    {
+      "name": "r2_stops",
+      "group": "Route2_Entry_to_Building5",
+      "tool": "viewpoints.py",
+      "section": "Look-around stops every 50 m (ahead / right / behind / left)",
+      "description": "Route 2 look-around: every 50 m, the best real photo facing ahead, right, behind and left from any drive that passed. Empty directions are listed in STOPS.md.",
+      "args": [
+        "--route",
+        "28.51775,77.09570;28.51699,77.09518;28.51629,77.09472;28.51560,77.09426;28.51489,77.09378;28.51403,77.09349;28.51332,77.09331;28.51290,77.09333;28.51242,77.09340;28.51197,77.09350;28.51151,77.09361;28.51107,77.09379;28.51060,77.09393;28.51010,77.09417;28.50968,77.09438;28.50920,77.09459;28.50876,77.09477;28.50830,77.09498;28.50787,77.09513;28.50734,77.09523;28.50680,77.09531;28.50627,77.09523;28.50580,77.09512;28.50534,77.09494;28.50483,77.09467;28.50442,77.09439;28.50403,77.09411;28.50367,77.09378;28.50321,77.09342;28.50280,77.09310;28.50237,77.09277;28.50193,77.09252;28.50144,77.09225;28.50101,77.09194;28.50056,77.09164;28.50014,77.09136;28.49962,77.09091;28.49918,77.09051;28.49875,77.09012;28.49839,77.08979;28.49789,77.08975;28.49761,77.09027;28.49734,77.09071;28.49701,77.09118;28.49672,77.09163;28.49647,77.09205;28.49617,77.09247;28.49575,77.09274;28.49529,77.09254;28.49485,77.09232;28.49434,77.09212;28.49384,77.09192",
+        "--step",
+        "50",
+        "--radius",
+        "30",
+        "--exclude-seq",
+        "u7nBCgLB"
+      ]
     },
     {
       "name": "r2_building5_all_angles",
@@ -80,6 +145,24 @@
       ],
       "group": "Route2_Entry_to_Building5",
       "section": "Destination: DLF Building No. 5 from all available angles"
+    },
+    {
+      "name": "ne_r1_main",
+      "group": "NoidaExpressway_Route1",
+      "section": "Full route: Pari Chowk to the DND Flyway entry (towards DND only)",
+      "description": "Noida Expressway Route 1: from Pari Chowk along the expressway towards Delhi, over the Mahamaya flyover, Dadri Main Road past Film City to the DND Flyway entry. Towards-DND drives only, a photo every ~25 m where available.",
+      "args": [
+        "--route",
+        "28.46494,77.51119;28.46442,77.51038;28.46381,77.50962;28.46321,77.50885;28.46262,77.50809;28.46202,77.50732;28.46142,77.50656;28.46081,77.50579;28.46019,77.50505;28.45959,77.50429;28.45899,77.50353;28.45838,77.50276;28.45778,77.50200;28.45718,77.50124;28.45656,77.50049;28.45594,77.49975;28.45534,77.49898;28.45474,77.49821;28.45415,77.49745;28.45354,77.49668;28.45294,77.49592;28.45234,77.49516;28.45174,77.49439;28.45114,77.49363;28.45054,77.49286;28.44994,77.49210;28.44934,77.49133;28.44874,77.49057;28.44815,77.48980;28.44755,77.48903;28.44694,77.48828;28.44633,77.48752;28.44572,77.48676;28.44513,77.48599;28.44465,77.48513;28.44430,77.48419;28.44410,77.48319;28.44401,77.48218;28.44405,77.48116;28.44424,77.48016;28.44455,77.47920;28.44498,77.47830;28.44552,77.47749;28.44618,77.47679;28.44691,77.47618;28.44765,77.47561;28.44841,77.47505;28.44917,77.47450;28.44993,77.47394;28.45068,77.47336;28.45142,77.47279;28.45214,77.47216;28.45284,77.47152;28.45355,77.47087;28.45425,77.47023;28.45493,77.46956;28.45559,77.46886;28.45622,77.46813;28.45685,77.46739;28.45747,77.46665;28.45811,77.46593;28.45877,77.46523;28.45942,77.46452;28.46007,77.46380;28.46072,77.46309;28.46136,77.46237;28.46198,77.46163;28.46260,77.46088;28.46325,77.46017;28.46396,77.45954;28.46467,77.45890;28.46538,77.45827;28.46603,77.45756;28.46661,77.45678;28.46714,77.45595;28.46767,77.45512;28.46821,77.45430;28.46874,77.45348;28.46928,77.45265;28.46981,77.45183;28.47035,77.45101;28.47089,77.45018;28.47142,77.44936;28.47196,77.44854;28.47256,77.44777;28.47322,77.44707;28.47392,77.44643;28.47461,77.44576;28.47528,77.44508;28.47594,77.44438;28.47658,77.44365;28.47722,77.44293;28.47785,77.44221;28.47849,77.44148;28.47913,77.44076;28.47975,77.44001;28.48035,77.43925;28.48093,77.43846;28.48149,77.43766;28.48207,77.43687;28.48264,77.43608;28.48324,77.43531;28.48384,77.43456;28.48446,77.43381;28.48507,77.43305;28.48566,77.43228;28.48622,77.43147;28.48678,77.43067;28.48734,77.42987;28.48790,77.42907;28.48846,77.42826;28.48902,77.42746;28.48958,77.42666;28.49017,77.42589;28.49078,77.42513;28.49139,77.42438;28.49201,77.42362;28.49262,77.42287;28.49323,77.42212;28.49383,77.42136;28.49439,77.42055;28.49488,77.41969;28.49531,77.41880;28.49573,77.41789;28.49614,77.41698;28.49655,77.41607;28.49696,77.41515;28.49735,77.41423;28.49772,77.41330;28.49810,77.41237;28.49847,77.41144;28.49883,77.41050;28.49920,77.40957;28.49957,77.40864;28.49995,77.40771;28.50032,77.40677;28.50068,77.40584;28.50105,77.40491;28.50142,77.40397;28.50179,77.40304;28.50216,77.40211;28.50253,77.40118;28.50290,77.40024;28.50327,77.39931;28.50364,77.39837;28.50400,77.39744;28.50439,77.39652;28.50479,77.39560;28.50519,77.39468;28.50559,77.39376;28.50596,77.39283;28.50634,77.39191;28.50677,77.39101;28.50729,77.39017;28.50788,77.38940;28.50854,77.38869;28.50926,77.38808;28.51000,77.38750;28.51072,77.38688;28.51143,77.38624;28.51212,77.38558;28.51278,77.38489;28.51344,77.38418;28.51409,77.38348;28.51475,77.38278;28.51541,77.38208;28.51607,77.38137;28.51673,77.38067;28.51738,77.37997;28.51804,77.37927;28.51869,77.37856;28.51935,77.37786;28.52000,77.37715;28.52065,77.37643;28.52120,77.37562;28.52168,77.37476;28.52211,77.37386;28.52257,77.37298;28.52302,77.37210;28.52350,77.37123;28.52409,77.37045;28.52469,77.36969;28.52529,77.36893;28.52589,77.36816;28.52647,77.36737;28.52698,77.36653;28.52743,77.36564;28.52788,77.36476;28.52833,77.36387;28.52882,77.36301;28.52932,77.36216;28.52983,77.36132;28.53035,77.36048;28.53091,77.35968;28.53150,77.35890;28.53208,77.35812;28.53264,77.35732;28.53321,77.35652;28.53375,77.35570;28.53430,77.35489;28.53485,77.35407;28.53539,77.35326;28.53594,77.35245;28.53647,77.35162;28.53700,77.35079;28.53752,77.34995;28.53804,77.34912;28.53856,77.34828;28.53908,77.34745;28.53961,77.34662;28.54014,77.34578;28.54067,77.34495;28.54119,77.34412;28.54171,77.34329;28.54224,77.34245;28.54275,77.34161;28.54327,77.34077;28.54378,77.33993;28.54433,77.33912;28.54488,77.33831;28.54545,77.33752;28.54605,77.33675;28.54667,77.33600;28.54731,77.33528;28.54795,77.33457;28.54862,77.33388;28.54928,77.33318;28.54994,77.33248;28.55060,77.33178;28.55126,77.33108;28.55191,77.33037;28.55254,77.32964;28.55314,77.32887;28.55373,77.32809;28.55430,77.32730;28.55489,77.32653;28.55552,77.32579;28.55617,77.32508;28.55677,77.32433;28.55735,77.32354;28.55794,77.32276;28.55850,77.32196;28.55899,77.32110;28.55943,77.32021;28.55987,77.31931;28.56031,77.31842;28.56094,77.31770;28.56174,77.31723;28.56258,77.31686;28.56335,77.31634;28.56412,77.31579;28.56488,77.31524;28.56564,77.31467;28.56639,77.31411;28.56715,77.31355;28.56790,77.31298;28.56865,77.31242;28.56941,77.31187;28.57018,77.31132;28.57074,77.31091;28.57170,77.31045",
+        "--radius",
+        "30",
+        "--spacing",
+        "25",
+        "--max",
+        "1200",
+        "--only-seq",
+        "AmMVH2uc,dDJyeok3"
+      ]
     }
   ]
 }

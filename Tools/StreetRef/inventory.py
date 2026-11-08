@@ -54,7 +54,8 @@ def file_table(imgs, mode):
         fn = os.path.basename(im["file"]) + ("" if im["_exists"] else " ⚠ missing")
         extra = ""
         if mode == "route":
-            extra = f" {im.get('along_route_m', '')} m |"
+            stop = f" · stop {im['stop']} {im['view']}" if im.get("stop") else ""
+            extra = f" {im.get('along_route_m', '')} m{stop} |"
         elif mode == "point":
             b = im.get("bearing_from_centre")
             side = sides[int(((b or 0) + 22.5) // 45) % 8]
@@ -136,7 +137,14 @@ def main():
             body += [f"### {c.get('section', c['name'])}", "",
                      f"Sub-folder `{(g['folder'] + chr(92)) if g['folder'] else ''}{c['name']}\\images\\` · "
                      f"also `manifest.csv`, `manifest.json`, `ATTRIBUTION.md`, `CLAUDE_BRIEF.md`", ""]
-            if mode == "route" and imgs:
+            if any(i.get("stop") for i in imgs):
+                vs = ["ahead", "right", "behind", "left"]
+                stops = sorted({i["stop"] for i in imgs})
+                cnt = {v: sum(1 for i in imgs if i.get("view") == v) for v in vs}
+                body += [f"Look-around stops: {len(stops)} stops with photos. Views found: " +
+                         ", ".join(f"{v} {cnt[v]}" for v in vs) +
+                         ". See `STOPS.md` in this folder for which directions each stop has.", ""]
+            elif mode == "route" and imgs:
                 bands = collections.OrderedDict()
                 for im in imgs:
                     k = int((im.get("along_route_m") or 0) // 250)

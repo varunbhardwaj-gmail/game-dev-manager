@@ -12,7 +12,8 @@ Projects/*/References/*/
 Projects/*/References/INVENTORY.md
 Projects/*/References/*_log.txt
 Projects/*/References/*_coverage.json
-Projects/*/References/coverage_map.html
+Projects/*/References/survey_*.json
+Projects/*/References/coverage_map*.html
 Projects/*/References/route_preview.html
 refs/
 

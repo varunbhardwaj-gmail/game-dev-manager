@@ -174,9 +174,23 @@ def download(url, path, tries=4):
             time.sleep(2 * (i + 1))
 
 
-def fetch_candidates(bbox, token):
+def tile_near_route(t, route, radius):
+    """True if tile t (w,s,e,n) could hold a photo within `radius` m of the route:
+    its centre is within radius + half the tile's diagonal of some route segment."""
+    w, s, e, n = t
+    c = ((s + n) / 2, (w + e) / 2)
+    half_diag = haversine((s, w), (n, e)) / 2
+    return any(dist_to_segment(c, a, b) <= radius + half_diag for a, b in zip(route, route[1:]))
+
+
+def fetch_candidates(bbox, token, route=None, radius=0):
+    """All photos in bbox, searched tile by tile. With a route, only tiles near it are searched."""
     seen = {}
     all_tiles = list(tiles(bbox))
+    if route:
+        n_all = len(all_tiles)
+        all_tiles = [t for t in all_tiles if tile_near_route(t, route, radius)]
+        print(f"  searching {len(all_tiles)} of {n_all} tiles (only those near the route)")
     for k, t in enumerate(all_tiles, 1):
         q = urllib.parse.urlencode({"access_token": token, "fields": FIELDS,
                                     "bbox": ",".join(f"{v:.6f}" for v in t), "limit": 2000})
@@ -245,7 +259,7 @@ def main():
     since_ms = int(dt.datetime.fromisoformat(args.since).timestamp() * 1000) if args.since else 0
 
     print(f"[{name}] {desc}")
-    cands = fetch_candidates(bbox, token)
+    cands = fetch_candidates(bbox, token, ROUTE_PTS if args.route else None, args.radius)
     print(f"  {len(cands)} photos found in search box")
     if args.survey:
         os.makedirs(args.out, exist_ok=True)

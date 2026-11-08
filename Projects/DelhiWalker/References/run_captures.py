@@ -36,7 +36,7 @@ for c in plan["captures"]:
         continue
     out = os.path.join(here, c["group"])
     say(f"\n=== {c['group']} / {c['name']} ===\n{c['description']}")
-    cmd = [sys.executable, "-u", os.path.join(tools, "streetref.py"), "--name", c["name"], "--out", out,
+    cmd = [sys.executable, "-u", os.path.join(tools, c.get("tool", "streetref.py")), "--name", c["name"], "--out", out,
            "--notes", c["description"]] + c["args"]
     code = run(cmd)
     if code != 0:

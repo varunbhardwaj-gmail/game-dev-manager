@@ -10,14 +10,18 @@ header{padding:10px 16px}h1{font-size:18px;margin:0}p{margin:2px 0;color:var(--m
 #map{height:calc(100vh - 110px);min-height:360px}
 </style></head><body>
 <header><h1>Photo coverage</h1>
-<p>Small dots = Mapillary photos (orange: 2024 or newer, grey: older). Lines = planned capture routes. Click anywhere to get coordinates.</p></header>
+<p>Small dots = Mapillary photos (orange: 2024 or newer, grey: older, blue: 360° panorama). Thin boxes = surveyed area. Lines = planned capture routes. Click anywhere to get coordinates.</p></header>
 <div id="map"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
-const photos=__PHOTOS__, plan=__PLAN__;
-const map=L.map('map',{preferCanvas:true}).setView([28.5005,77.0945],16);
+const photos=__PHOTOS__, plan=__PLAN__, boxes=__BOXES__;
+const map=L.map('map',{preferCanvas:true});
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap contributors'}).addTo(map);
-photos.forEach(([la,lo,d,h])=>L.circleMarker([la,lo],{radius:2.5,stroke:false,fillOpacity:.8,fillColor:d>='2024'?'#e8871e':'#888'}).addTo(map).bindTooltip(d+' · heading '+h+'°'));
+const rects=boxes.map(b=>{const [s,w,n,e]=b.split(',').map(Number);return L.rectangle([[s,w],[n,e]],{color:'#555',weight:1,fill:false,dashArray:'4'}).addTo(map);});
+const area=L.featureGroup(rects).getBounds(), box=document.getElementById('map'); let fitted=false;
+const fit=()=>{if(!fitted&&box.clientHeight){map.invalidateSize(); map.fitBounds(area); fitted=true;}};
+fit(); new ResizeObserver(fit).observe(box); // zoom once the map really has a size
+photos.forEach(([la,lo,d,h,pano])=>L.circleMarker([la,lo],{radius:2.5,stroke:false,fillOpacity:.8,fillColor:pano?'#2a7de1':d>='2024'?'#e8871e':'#888'}).addTo(map).bindTooltip(d+' · heading '+h+'°'+(pano?' · 360°':'')));
 const colors=['#d1495b','#2a7de1','#2e9e5b'];
 plan.captures.forEach((c,i)=>{const a=c.args, pt=s=>s.split(',').map(Number);
  const r=a.indexOf('--route'), p=a.indexOf('--point'), rad=+a[a.indexOf('--radius')+1];
